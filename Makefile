@@ -35,7 +35,7 @@ latex-with-filters:
 	    -f $(makefile_dir)/latex_with_filters/Dockerfile $(makefile_dir)
 			
 login-dockerhub:
-	eval docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+	echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${GITHUB_USER }} --password-stdin
 
 push-to-dockerhub:
 	docker push dennisseidel/pandoc-latex-with-filters:$(PANDOC_VERSION)
