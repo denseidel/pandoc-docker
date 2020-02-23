@@ -1,5 +1,6 @@
 PANDOC_VERSION ?= 2.9.1.1
 CROSSREF_RELEASE="v0.3.6.1b"
+IMAGE_NAME=$(IMAGE_ID):$(PANDOC_VERSION)
 
 # substitute dots '.' in version with underscores '_'
 PANDOC_VERSION_UNDER = $(subst .,_,${PANDOC_VERSION})
@@ -28,7 +29,7 @@ show-args:
 
 latex-with-filters:
 	docker build \
-	    --tag $(IMAGE_ID):$(PANDOC_VERSION) \
+	    --tag $(IMAGE_NAME) \
 	    --build-arg pandoc_version=$(PANDOC_VERSION) \
 	    --build-arg pandoc_version_under=$(PANDOC_VERSION_UNDER) \
 	    --build-arg crossref_release=$(CROSSREF_RELEASE) \
@@ -38,7 +39,7 @@ login-github:
 	echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${GITHUB_USER }} --password-stdin
 
 push-to-repo:
-  docker push $(IMAGE_ID):$(PANDOC_VERSION)
+  docker push $(IMAGE_NAME)
 
 build-and-push: latex-with-filters push-to-repo
 
