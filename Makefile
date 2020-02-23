@@ -38,8 +38,6 @@ login-github:
 	echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${GITHUB_USER }} --password-stdin
 
 push-to-repo:
-  echo IMAGE_ID=$IMAGE_ID
-  echo VERSION=$PANDOC_VERSION_UNDER
   docker push $IMAGE_ID:$(PANDOC_VERSION)
 
 build-and-push: latex-with-filters push-to-dockerhub
