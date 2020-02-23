@@ -28,17 +28,21 @@ show-args:
 
 latex-with-filters:
 	docker build \
-	    --tag dennisseidel/pandoc-latex-with-filters:$(PANDOC_VERSION) \
+	    --tag $(IMAGE_ID):$(PANDOC_VERSION) \
 	    --build-arg pandoc_version=$(PANDOC_VERSION) \
 	    --build-arg pandoc_version_under=$(PANDOC_VERSION_UNDER) \
 	    --build-arg crossref_release=$(CROSSREF_RELEASE) \
 	    -f $(makefile_dir)/latex_with_filters/Dockerfile $(makefile_dir)
 			
-login-dockerhub:
+login-github:
 	echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${GITHUB_USER }} --password-stdin
 
-push-to-dockerhub:
-	docker push dennisseidel/pandoc-latex-with-filters:$(PANDOC_VERSION)
+push-to-repo:
+  echo IMAGE_ID=$IMAGE_ID
+  echo VERSION=$PANDOC_VERSION_UNDER
+  docker push $IMAGE_ID:$(PANDOC_VERSION)
+
+build-and-push: latex-with-filters push-to-dockerhub
 
 all: latex-with-filters login-dockerhub push-to-dockerhub
 
