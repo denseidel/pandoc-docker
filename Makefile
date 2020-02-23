@@ -40,7 +40,7 @@ login-github:
 push-to-repo:
   docker push $IMAGE_ID:$(PANDOC_VERSION)
 
-build-and-push: latex-with-filters push-to-dockerhub
+build-and-push: latex-with-filters push-to-repo
 
 all: latex-with-filters login-dockerhub push-to-dockerhub
 
