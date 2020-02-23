@@ -45,6 +45,10 @@ jobs:
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Build and push image
+      - name: Build
         run: |
-          make IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ env.IMAGE_NAME }} build-and-push
+          make IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ env.IMAGE_NAME }} latex-with-filters
+      
+      - name: Push
+        run: |
+          make IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ env.IMAGE_NAME }} push-to-repo
