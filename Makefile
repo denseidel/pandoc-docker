@@ -39,7 +39,7 @@ login-github:
 	echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${GITHUB_USER }} --password-stdin
 
 push-to-repo:
-  docker push $(IMAGE_NAME)
+	docker push $(IMAGE_NAME)
 
 build-and-push: latex-with-filters push-to-repo
 
