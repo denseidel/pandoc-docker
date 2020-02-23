@@ -28,13 +28,19 @@ show-args:
 
 latex-with-filters:
 	docker build \
-	    --tag jradek/pandoc-latex-with-filters:$(PANDOC_VERSION) \
+	    --tag dennisseidel/pandoc-latex-with-filters:$(PANDOC_VERSION) \
 	    --build-arg pandoc_version=$(PANDOC_VERSION) \
 	    --build-arg pandoc_version_under=$(PANDOC_VERSION_UNDER) \
 	    --build-arg crossref_release=$(CROSSREF_RELEASE) \
 	    -f $(makefile_dir)/latex_with_filters/Dockerfile $(makefile_dir)
+			
+login-dockerhub:
+	eval docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
 
-all: latex-with-filters
+push-to-dockerhub:
+	docker push dennisseidel/pandoc-latex-with-filters:$(PANDOC_VERSION)
+
+all: latex-with-filters login-dockerhub push-to-dockerhub
 
 ################################################################################
 # Developer targets                                                            #
