@@ -47,4 +47,4 @@ jobs:
 
       - name: Build and push image
         run: |
-          make IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{IMAGE_NAME}} build-and-push
+          make IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ IMAGE_NAME }} build-and-push
